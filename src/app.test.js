@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from "@testing-library/react";
-import App from './app';
+import App from './lazyload_page';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducer/index';

@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import counterReducer, { CountState } from './counter';
+import showModalReducer, { ModalState } from './show_modal';
+import optionsReducer, { OptionStatus } from './options';
 
 export interface RootState {
-  count : CountState,
+  modal : ModalState,
+  options: OptionStatus
 }
 
 export default combineReducers<RootState>({
-  count: counterReducer,
+  modal: showModalReducer,
+  options: optionsReducer
 });

@@ -1,34 +1,26 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import Button from './button';
+import OptionModal from './option_modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../reducer/index';
+import { setShowModal } from '../reducer/show_modal';
 
 const HeaderWrapper = styled.div`
   text-align: center;
 `;
 
-const Button = styled.button`
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: #1033e3;
-  box-shadow: 5px 5px 16px -2px rgb(175, 175, 175);
-  width:214px;
-  height:35px;
-  font-size: 0.9rem;
-  border-radius: 9px;
-  border: none;
-  color: white;
-  cursor:pointer;
-  margin: 0.8rem auto;
-
-  &:hover{
-    background: linear-gradient(70deg,#1033e3, #f74bf7);
-  }
-`;
-
 export default function Header() {
+
+  const show = useSelector((root: RootState) => root.modal.show);
+  const dispatch = useDispatch();
 
   return (
     <>
+      <OptionModal display={show} />
       <HeaderWrapper>
-        <Button>
-          최적화 옵션
+        <Button onClick={() => dispatch(setShowModal(''))}>
+          <span>최적화 옵션</span>
         </Button>
       </HeaderWrapper>
     </>

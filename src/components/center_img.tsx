@@ -12,7 +12,7 @@ const ImageWrapper = styled.div<Partial<ImageProps>>`
   display:inline-block;
   overflow: hidden;
   
-  img {
+  img, div {
     width:100%;
     height:100%;
     object-fit: cover;
