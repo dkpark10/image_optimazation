@@ -13,13 +13,13 @@ interface OptionsAction {
 };
 
 const initialState: OptionStatus = {
-  sprite: false,
+  sprite: true,
   lazyLoading: true,
   webFormat: false,
   itemCount: 45
 };
 
-export const setUseSprite = (payload: OptionStatus) => ({
+export const setOptimizeOptions = (payload: OptionStatus) => ({
   type: OPTIONS,
   payload
 })

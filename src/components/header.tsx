@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../reducer/index';
 import { setShowModal } from '../reducer/show_modal';
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.header`
   text-align: center;
+  height:87px;
+  position: relative;
+  padding: 10px;
 `;
 
 export default function Header() {

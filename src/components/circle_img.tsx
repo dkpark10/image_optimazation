@@ -3,7 +3,7 @@ import styled from 'styled-components';
 interface CircleImageProps {
   width: string;
   height: string;
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 const CircleImageWrapper = styled.div<Partial<CircleImageProps>>`

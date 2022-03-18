@@ -21,9 +21,10 @@ const ToggleStyle = styled.span`
     right: 0;
     bottom: 0;
     border-radius:20px;
-    background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
+    background: linear-gradient(180deg, #b4b4c0, #d8d8e4);
+    box-shadow:  1px 4px 18px #727279;
   }
 
   // 실제 버튼
@@ -34,14 +35,14 @@ const ToggleStyle = styled.span`
     width: 14px;
     bottom: 2px;
     left: 4px;
-    background-color: #fff;
     -webkit-transition: .5s;
     transition: .4s;
     border-radius:20px;
+    background: linear-gradient(360deg, #d5d5da, #fefeff);
   }
 
   .toggle-wrapper input:checked + .onoff-switch {
-    background-color: #1033e3;
+    background: linear-gradient(180deg, #17179d, #5959de);
   }
 
   .toggle-wrapper input:checked + .onoff-switch:before {
@@ -54,12 +55,14 @@ const ToggleStyle = styled.span`
 interface Props {
   id: string;
   name: string;
+  checked: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function ToggleButton({
   id,
   name,
+  checked,
   onChange
 }: Props) {
 
@@ -72,6 +75,7 @@ export default function ToggleButton({
             name={name}
             type='checkbox'
             onChange={onChange}
+            checked={checked}
           />
           <span className='onoff-switch' />
         </label>

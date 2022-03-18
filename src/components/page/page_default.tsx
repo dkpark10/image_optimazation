@@ -3,11 +3,12 @@ import ItemCard from '../item_card';
 import Header from '../header';
 import styled from 'styled-components';
 
-interface Props {
-  itemCount: number;
-}
+const AppWrapper = styled.main`
+  position: relative;
+  height: 100%;
+`;
 
-const AppWrapper = styled.div`
+const AppStyle = styled.div`
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: stretch;
@@ -47,26 +48,30 @@ const AppWrapper = styled.div`
   }
 `;
 
+interface Props {
+  itemCount: number;
+}
+
 export default function Page({ itemCount }: Props): JSX.Element {
 
   const [items, setItems] = useState<number[]>(new Array(itemCount).fill(-1));
 
   useEffect(() => {
-    new Promise(_ => setTimeout(() => {
-      setItems(Array.from({ length: itemCount }, (_, i) => i + 1));
-    }, 340));
+    setItems(Array.from({ length: itemCount }, (_, i) => i + 1));
   }, []);
 
   return (
     <>
       <Header />
       <AppWrapper>
-        {items.map((ele, idx) =>
-          <ItemCard
-            randomValue={ele}
-            key={idx}
-          />
-        )}
+        <AppStyle>
+          {items.map((ele, idx) =>
+            <ItemCard
+              randomValue={ele}
+              key={idx}
+            />
+          )}
+        </AppStyle>
       </AppWrapper>
     </>
   )

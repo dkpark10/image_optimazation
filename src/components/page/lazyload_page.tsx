@@ -3,11 +3,12 @@ import ItemCard from '../item_card';
 import Header from '../header';
 import styled from 'styled-components';
 
-interface Props {
-  len: number;
-}
+const AppWrapper = styled.main`
+  position: relative;
+  height:100%;
+`;
 
-const AppWrapper = styled.div<Props>`
+const AppStyle = styled.div`
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: stretch;
@@ -15,7 +16,6 @@ const AppWrapper = styled.div<Props>`
   width:942px;
   position: absolute; 
   left:50%;
-  top: 6%;
   transform: translate(-50%);
 
   .target {
@@ -47,32 +47,34 @@ const AppWrapper = styled.div<Props>`
   }
 `;
 
-export default function LazyLoadPage(): JSX.Element {
+interface Props {
+  itemCount: number;
+}
+
+export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
 
   const [target, setTarget] = useState<any>(null);
   const [items, setItems] = useState<number[]>(new Array(9).fill(-1));
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const addItem = async () => {
-    if (items.length >= 300) {
-      return;
-    }
     setIsLoaded(true);
-    await new Promise(_ => setTimeout(_, 500));
     setItems(prev => prev.concat(Array.from({ length: 9 }, (_, i) => i + 1 + prev.length)));
     setIsLoaded(false);
+  }
+
+  const intersectionCallBack = async ([entry], intersec: IntersectionObserver) => {
+    if (entry.isIntersecting && !isLoaded) {
+      intersec.unobserve(entry.target);
+      await addItem();
+      intersec.observe(entry.target);
+    }
   }
 
   useEffect(() => {
     let observer: IntersectionObserver;
     if (target) {
-      observer = new IntersectionObserver(async ([entry], intersec: IntersectionObserver) => {
-        if (entry.isIntersecting && !isLoaded) {
-          intersec.unobserve(entry.target);
-          await addItem();
-          intersec.observe(entry.target);
-        }
-      }, {
+      observer = new IntersectionObserver(intersectionCallBack, {
         threshold: 0.4
       });
       observer.observe(target);
@@ -82,30 +84,31 @@ export default function LazyLoadPage(): JSX.Element {
   }, [target])
 
   useEffect(() => {
-    new Promise(_ => setTimeout(() => {
-      setItems(Array.from({ length: 9 }, (_, i) => i + 1));
-    }, 340));
+    setItems(Array.from({ length: 9 }, (_, i) => i + 1));
   }, []);
 
   return (
     <>
       <Header />
-      <AppWrapper len={items.length + 1}>
-        {items.map((ele, idx) =>
-          <ItemCard
-            randomValue={ele}
-            key={idx}
-          />
-        )}
-        <div className='target' ref={setTarget}>
-          {isLoaded &&
-            [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) =>
-              <ItemCard
-                randomValue={-1}
-                key={idx}
-              />
-            )}
-        </div>
+      <AppWrapper>
+        <AppStyle>
+          {items.map((ele, idx) =>
+            <ItemCard
+              randomValue={ele}
+              key={idx}
+            />
+          )}
+          {itemCount > items.length &&
+            <div className='target' ref={setTarget}>
+              {isLoaded &&
+                [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) =>
+                  <ItemCard
+                    randomValue={-1}
+                    key={idx}
+                  />
+                )}
+            </div>}
+        </AppStyle>
       </AppWrapper>
     </>
   )

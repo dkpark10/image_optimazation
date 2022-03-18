@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import CircleImage from './circle_img';
-import Image from './center_img';
+import ImageWrapper from './center_img';
+import { useSelector } from 'react-redux';
+import { RootState } from '../reducer/index';
+import Skeleton from './skeleton';
+import { useState } from 'react';
 
 const FooterWrapper = styled.div`
   
@@ -17,34 +21,24 @@ const FooterWrapper = styled.div`
     transform: translateY(-50%);
   }  
 
-  .polygon, .circle, .star, .triangle, .rectangle{
-    background: url('images.png') no-repeat;
+  .polygon, .new-moon, .star, .right, .rounded-rectangle{
+    background: url('images34gray.png') no-repeat;
   }
 
   .polygon{
-    width:100%;
-    height:100%;
     background-position: 0 0;
   }
-  .circle{
-    width:100%;
-    height:100%;
-    background-position: -128px 0;
+  .new-moon{
+    background-position: -34px 0;
   }
   .star{
-    width:100%;
-    height:100%;
-    background-position: -256px 0;
+    background-position: -68px 0;
   }
-  .triangle{
-    width:100%;
-    height:100%;
-    background-position: -384px 0;
+  .right{
+    background-position: -102px 0;
   }
-  .rectangle{
-    width:100%;
-    height:100%;
-    background-position: -512px 0;
+  .rounded-rectangle{
+    background-position: -136px 0;
   }
 `;
 
@@ -54,22 +48,30 @@ interface Props {
 
 export default function ItemFooter({ randomValue }: Props) {
 
-  const RANDOM_IMG1 = `https://source.unsplash.com/random/${randomValue + 300}` as const;
+  const sprite = useSelector((state: RootState) => state.options.sprite);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  const RANDOM_IMG1 = `https://source.unsplash.com/random/${randomValue + 300}` as const;
   const size = {
-    width: '',
-    height: ''
+    width: '34px',
+    height: '34px'
   }
 
-  const isLoaded = () => {
-    if (randomValue !== -1) {
-      return <img src={RANDOM_IMG1} />;
-    } else {
-      return <div
-        className='skeleton-item'
-        style={{ width: '100%', height: '100%' }}
-      />
-    }
+  const spriteImage = (sprite: boolean): JSX.Element[] => {
+
+    const classNameList = ['polygon', 'new-moon', 'star', 'right', 'rounded-rectangle'];
+
+    return classNameList.map((className, idx) =>
+      <ImageWrapper
+        width={size.width}
+        height={size.height}
+        boxShadow={true}
+        key={idx}
+      >
+        <img src={`${className}gray.png`} />
+        {/* {sprite ? <div className={className} /> : <img src={`${className}gray.png`} />} */}
+      </ImageWrapper>
+    )
   }
 
   return (
@@ -80,38 +82,13 @@ export default function ItemFooter({ randomValue }: Props) {
             width={'37px'}
             height={'37px'}
           >
-            {isLoaded()}
+            {loading && <div
+              className='skeleton-item'
+              style={{ width: '100%', height: '100%' }}
+            />}
+            <img src={RANDOM_IMG1} onLoad={() => setLoading(false)} />
           </CircleImage>
-          <Image
-            width={size.width}
-            height={size.height}
-          >
-            <div className='polygon'/>
-          </Image>
-          <Image
-            width={size.width}
-            height={size.height}
-          >
-            <div className='circle'/>
-          </Image>
-          <Image
-            width={size.width}
-            height={size.height}
-          >
-            <div className='star'/>
-          </Image>
-          <Image
-            width={size.width}
-            height={size.height}
-          >
-            <div className='triangle'/>
-          </Image>
-          <Image
-            width={size.width}
-            height={size.height}
-          >
-            <div className='rectangle'/>
-          </Image>
+          {spriteImage(sprite)}
         </div>
       </FooterWrapper>
     </>

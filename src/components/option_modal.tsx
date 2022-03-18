@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ToggleButton from './toggle';
 import Button from './button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setShowModal } from '../reducer/show_modal';
+import { RootState } from '../reducer/index';
+import { OptionStatus, setOptimizeOptions } from '../reducer/options';
+import RangeInput from './atoms/input_range';
 
 interface Props {
   display?: string;
@@ -27,16 +30,18 @@ const ModalWrapper = styled.div<Props>`
 
     .modal-content{
       padding: 35px 50px;
-      background-color: white;
-      border:2px solid #1033e3;
       font-weight: bold;
       border-radius: 5px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.2);
       text-align: center;;
+      background: linear-gradient(145deg, #c2c2cd, #e7e7f4);
+      box-shadow:  17px 17px 38px #121212,
+             -1px -1px 3px #ffffff;
     }
 
     .option-item{
       text-align: left;
+      margin: 4px 0;
     }
 
     .modal-content :first-child{
@@ -49,52 +54,52 @@ export default function OptionModal({
 }: Props) {
 
   const dispatch = useDispatch();
-  const ref: React.MutableRefObject<boolean[]> = useRef([true, false, false]);
-  const [itemCount, setItemCount] = useState<number>(9);
-  const optionList = ['lazy-loading', 'css-sprite', 'image-format'];
+  const [options, setOptions] = useState<OptionStatus>(useSelector((state: RootState) => state.options));
 
   useEffect(() => {
     // 스크롤 막는다.
     if (display !== 'none') {
       document.body.style.overflow = 'hidden';
     }
-  }, [])
+  })
 
   const rangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setItemCount(Number(e.currentTarget.value));
+
+    setOptions(prev => ({
+      ...prev,
+      itemCount: Number(e.target.value)
+    }))
   }
 
   const checkboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
-      case optionList[0]:
-        ref.current[0] = e.currentTarget.checked;
+      case 'lazy-loading':
+        setOptions(prev => ({
+          ...prev,
+          lazyLoading: e.target.checked
+        }))
         break;
-      case optionList[1]:
-        ref.current[1] = e.currentTarget.checked;
+      case 'css-sprite':
+        setOptions(prev => ({
+          ...prev,
+          sprite: e.target.checked
+        }))
         break;
-      case optionList[2]:
-        ref.current[2] = e.currentTarget.checked;
+      case 'image-format':
+        setOptions(prev => ({
+          ...prev,
+          webFormat: e.target.checked
+        }))
         break;
       default: break;
     }
   }
 
-  const checkboxOptionList: JSX.Element[] = optionList.map((ele, idx) =>
-    <div className='option-item' key={idx}>
-      <ToggleButton
-        id={ele}
-        name={ele}
-        onChange={checkboxChange}
-      />
-      <label htmlFor={ele}>{ele} 사용하기</label>
-    </div>
-  );
-
   const renderClick = () => {
-    ref.current.map(ele => console.log(ele));
+    dispatch(setShowModal('none'));
+    dispatch(setOptimizeOptions(options));
     // 스크롤 해제
     document.body.style.overflow = 'unset';
-    dispatch(setShowModal('none'));
   }
 
   return (
@@ -106,19 +111,45 @@ export default function OptionModal({
           <div className='modal-content'>
             <div className='option-item'>
               <div>
-                <label htmlFor='item-count'>아이템 갯수: {itemCount}</label>
+                <label htmlFor='item-count'>아이템 갯수: {options.itemCount}</label>
               </div>
-              <input
-                type="range"
+              <RangeInput
                 id="item-count"
                 name="item-count"
-                min="9"
-                max="297"
-                step="9"
+                min={9}
+                max={297}
+                step={9}
+                value={options.itemCount}
                 onChange={rangeChange}
               />
             </div>
-            {checkboxOptionList}
+            <div className='option-item'>
+              <ToggleButton
+                id={'lazy-loading'}
+                name={'lazy-loading'}
+                onChange={checkboxChange}
+                checked={options.lazyLoading}
+              />
+              <label htmlFor={'lazy-loading'}>lazy-loading 사용하기</label>
+            </div>
+            <div className='option-item'>
+              <ToggleButton
+                id={'css-sprite'}
+                name={'css-sprite'}
+                onChange={checkboxChange}
+                checked={options.sprite}
+              />
+              <label htmlFor={'css-sprite'}>css-sprite 사용하기</label>
+            </div>
+            <div className='option-item'>
+              <ToggleButton
+                id={'image-format'}
+                name={'image-format'}
+                onChange={checkboxChange}
+                checked={options.webFormat}
+              />
+              <label htmlFor={'image-format'}>image-format 사용하기</label>
+            </div>
             <Button onClick={renderClick}>
               <span>다시 렌더링 하기</span>
             </Button>
