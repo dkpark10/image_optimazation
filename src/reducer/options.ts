@@ -13,7 +13,7 @@ interface OptionsAction {
 };
 
 const initialState: OptionStatus = {
-  sprite: true,
+  sprite: false,
   lazyLoading: true,
   webFormat: false,
   itemCount: 45

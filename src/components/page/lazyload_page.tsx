@@ -8,7 +8,7 @@ const AppWrapper = styled.main`
   height:100%;
 `;
 
-const AppStyle = styled.div`
+const AppStyle = styled.ul`
   display:grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: stretch;
@@ -17,6 +17,7 @@ const AppStyle = styled.div`
   position: absolute; 
   left:50%;
   transform: translate(-50%);
+  list-style: none;
 
   .target {
     height: 280px;
@@ -54,7 +55,7 @@ interface Props {
 export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
 
   const [target, setTarget] = useState<any>(null);
-  const [items, setItems] = useState<number[]>(new Array(9).fill(-1));
+  const [items, setItems] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const addItem = async () => {
@@ -83,20 +84,18 @@ export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
     return () => observer && observer.disconnect();
   }, [target])
 
-  useEffect(() => {
-    setItems(Array.from({ length: 9 }, (_, i) => i + 1));
-  }, []);
-
   return (
     <>
       <Header />
       <AppWrapper>
         <AppStyle>
           {items.map((ele, idx) =>
-            <ItemCard
-              randomValue={ele}
-              key={idx}
-            />
+            <li>
+              <ItemCard
+                randomValue={ele}
+                key={idx}
+              />
+            </li>
           )}
           {itemCount > items.length &&
             <div className='target' ref={setTarget}>

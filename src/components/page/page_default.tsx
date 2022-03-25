@@ -16,7 +16,6 @@ const AppStyle = styled.div`
   width:942px;
   position: absolute; 
   left:50%;
-  top: 6%;
   transform: translate(-50%);
 
   .target {

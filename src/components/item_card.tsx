@@ -36,6 +36,7 @@ export default function ItemCard({ randomValue }: Props) {
           <img
             src={RANDOM_IMG1}
             onLoad={() => setLoading(false)}
+            alt={'랜덤 메인 이미지'}
           />
         </ImageWrapper>
         <ItemFooter

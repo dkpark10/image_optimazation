@@ -68,8 +68,8 @@ export default function ItemFooter({ randomValue }: Props) {
         boxShadow={true}
         key={idx}
       >
-        <img src={`${className}gray.png`} />
-        {/* {sprite ? <div className={className} /> : <img src={`${className}gray.png`} />} */}
+        {sprite ? <div className={className} /> :
+          <img src={`${className}gray.png`} alt={`스프라이트 이미지${idx}`} />}
       </ImageWrapper>
     )
   }
@@ -86,7 +86,11 @@ export default function ItemFooter({ randomValue }: Props) {
               className='skeleton-item'
               style={{ width: '100%', height: '100%' }}
             />}
-            <img src={RANDOM_IMG1} onLoad={() => setLoading(false)} />
+            <img
+              src={RANDOM_IMG1}
+              onLoad={() => setLoading(false)}
+              alt={'프로필 이미지'}
+            />
           </CircleImage>
           {spriteImage(sprite)}
         </div>
