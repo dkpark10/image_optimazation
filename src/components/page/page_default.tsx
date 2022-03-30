@@ -66,7 +66,7 @@ export default function Page({ itemCount }: Props): JSX.Element {
         <AppStyle>
           {items.map((ele, idx) =>
             <ItemCard
-              randomValue={ele}
+              num={idx}
               key={idx}
             />
           )}

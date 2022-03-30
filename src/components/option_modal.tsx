@@ -7,6 +7,7 @@ import { setShowModal } from '../reducer/show_modal';
 import { RootState } from '../reducer/index';
 import { OptionStatus, setOptimizeOptions } from '../reducer/options';
 import RangeInput from './atoms/input_range';
+import RadioButton from './atoms/radio_button';
 
 interface Props {
   display?: string;
@@ -117,7 +118,7 @@ export default function OptionModal({
                 id="item-count"
                 name="item-count"
                 min={9}
-                max={297}
+                max={99}
                 step={9}
                 value={options.itemCount}
                 onChange={rangeChange}
@@ -143,12 +144,12 @@ export default function OptionModal({
             </div>
             <div className='option-item'>
               <ToggleButton
-                id={'image-format'}
-                name={'image-format'}
+                id={'webp-format'}
+                name={'webp-format'}
                 onChange={checkboxChange}
                 checked={options.webFormat}
               />
-              <label htmlFor={'image-format'}>image-format 사용하기</label>
+              <label htmlFor={'webp-format'}>webp 포맷 사용하기</label>
             </div>
             <Button onClick={renderClick}>
               <span>다시 렌더링 하기</span>

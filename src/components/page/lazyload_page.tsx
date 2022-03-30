@@ -55,7 +55,7 @@ interface Props {
 export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
 
   const [target, setTarget] = useState<any>(null);
-  const [items, setItems] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [items, setItems] = useState<number[]>([0,1,2,3,4,5,6,7,8]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const addItem = async () => {
@@ -90,10 +90,9 @@ export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
       <AppWrapper>
         <AppStyle>
           {items.map((ele, idx) =>
-            <li>
+            <li key={idx}>
               <ItemCard
-                randomValue={ele}
-                key={idx}
+                num={ele}
               />
             </li>
           )}
@@ -102,7 +101,7 @@ export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
               {isLoaded &&
                 [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) =>
                   <ItemCard
-                    randomValue={-1}
+                    num={-1}
                     key={idx}
                   />
                 )}

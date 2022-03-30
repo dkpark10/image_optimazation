@@ -17,13 +17,15 @@ const ItemCardWrapper = styled.div`
 `;
 
 interface Props {
-  randomValue: number;
+  num: number;
 }
 
-export default function ItemCard({ randomValue }: Props) {
+export default function ItemCard({ num }: Props) {
 
-  const RANDOM_IMG1 = `https://source.unsplash.com/random/${randomValue}` as const;
+  const RANDOM_IMG1 = `https://source.unsplash.com/random/${num}` as const;
   const [loading, setLoading] = useState<boolean>(true);
+
+  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg`;
 
   return (
     <>
@@ -34,13 +36,13 @@ export default function ItemCard({ randomValue }: Props) {
         >
           {loading && <Skeleton />}
           <img
-            src={RANDOM_IMG1}
+            src={IMGSRC}
             onLoad={() => setLoading(false)}
             alt={'랜덤 메인 이미지'}
           />
         </ImageWrapper>
         <ItemFooter
-          randomValue={randomValue}
+          num={num + 99}
         />
       </ItemCardWrapper>
     </>

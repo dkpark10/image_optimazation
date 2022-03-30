@@ -11,15 +11,11 @@ interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const RangeStyle = styled.input.attrs<Props>(({ type }) => {
-  return {
-    type: 'range',
-  }
-})`
+const RangeStyle = styled.input.attrs<Props>({ type: 'range' })`
   background: ${({ value }) => 
     `linear-gradient(to right, #17179d 0%, 
-      #5959de ${Math.floor(value as number / 3)}%, 
-      #fff ${Math.floor(value as number / 3)}%, #ccc 100%)`
+      #5959de ${value}%, 
+      #fff ${value}%, #ccc 100%)`
   };
   border-radius: 8px;
   height: 9px;

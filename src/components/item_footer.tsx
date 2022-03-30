@@ -43,15 +43,17 @@ const FooterWrapper = styled.div`
 `;
 
 interface Props {
-  randomValue: number;
+  num: number;
 }
 
-export default function ItemFooter({ randomValue }: Props) {
+export default function ItemFooter({ num }: Props) {
 
   const sprite = useSelector((state: RootState) => state.options.sprite);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const RANDOM_IMG1 = `https://source.unsplash.com/random/${randomValue + 300}` as const;
+  const RANDOM_IMG1 = `https://source.unsplash.com/random/${num + 300}` as const;
+  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg`;
+
   const size = {
     width: '34px',
     height: '34px'
@@ -87,7 +89,7 @@ export default function ItemFooter({ randomValue }: Props) {
               style={{ width: '100%', height: '100%' }}
             />}
             <img
-              src={RANDOM_IMG1}
+              src={IMGSRC}
               onLoad={() => setLoading(false)}
               alt={'프로필 이미지'}
             />
