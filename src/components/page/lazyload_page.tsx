@@ -99,9 +99,9 @@ export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
           {itemCount > items.length &&
             <div className='target' ref={setTarget}>
               {isLoaded &&
-                [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) =>
+                [1, 2, 3, 4, 5, 6, 7, 8, 9].map((ele, idx) =>
                   <ItemCard
-                    num={-1}
+                    num={ele}
                     key={idx}
                   />
                 )}

@@ -7,7 +7,7 @@ import { setShowModal } from '../reducer/show_modal';
 import { RootState } from '../reducer/index';
 import { OptionStatus, setOptimizeOptions } from '../reducer/options';
 import RangeInput from './atoms/input_range';
-import RadioButton from './atoms/radio_button';
+import ImageSizeOption from './molecules/option_image_size';
 
 interface Props {
   display?: string;
@@ -20,6 +20,8 @@ const ModalWrapper = styled.div<Props>`
   width:100%;
   height:100%;
   z-index: 1;
+  font-size:0.92rem;
+  font-family: 'Noto Sans KR', sans-serif;
 
   .overlay{
     width:100%;
@@ -31,7 +33,6 @@ const ModalWrapper = styled.div<Props>`
 
     .modal-content{
       padding: 35px 50px;
-      font-weight: bold;
       border-radius: 5px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.2);
       text-align: center;;
@@ -42,7 +43,7 @@ const ModalWrapper = styled.div<Props>`
 
     .option-item{
       text-align: left;
-      margin: 4px 0;
+      margin: 3px 0;
     }
 
     .modal-content :first-child{
@@ -65,7 +66,6 @@ export default function OptionModal({
   })
 
   const rangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     setOptions(prev => ({
       ...prev,
       itemCount: Number(e.target.value)
@@ -86,7 +86,7 @@ export default function OptionModal({
           sprite: e.target.checked
         }))
         break;
-      case 'image-format':
+      case 'webp-format':
         setOptions(prev => ({
           ...prev,
           webFormat: e.target.checked
@@ -150,6 +150,9 @@ export default function OptionModal({
                 checked={options.webFormat}
               />
               <label htmlFor={'webp-format'}>webp 포맷 사용하기</label>
+            </div>
+            <div className='option-item'>
+              <ImageSizeOption />
             </div>
             <Button onClick={renderClick}>
               <span>다시 렌더링 하기</span>

@@ -4,7 +4,7 @@ import ImageWrapper from './center_img';
 import { useSelector } from 'react-redux';
 import { RootState } from '../reducer/index';
 import Skeleton from './skeleton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const FooterWrapper = styled.div`
   
@@ -51,9 +51,12 @@ export default function ItemFooter({ num }: Props) {
   const sprite = useSelector((state: RootState) => state.options.sprite);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const RANDOM_IMG1 = `https://source.unsplash.com/random/${num + 300}` as const;
-  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg`;
+  useEffect(() => {
+    setLoading(true);
+  },[])
 
+  // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
+  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg?time=` + new Date().getTime();
   const size = {
     width: '34px',
     height: '34px'
@@ -84,10 +87,11 @@ export default function ItemFooter({ num }: Props) {
             width={'37px'}
             height={'37px'}
           >
-            {loading && <div
+            {/* {loading && <div
               className='skeleton-item'
               style={{ width: '100%', height: '100%' }}
-            />}
+            />} */}
+            {loading && <Skeleton />}
             <img
               src={IMGSRC}
               onLoad={() => setLoading(false)}

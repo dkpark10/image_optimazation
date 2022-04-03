@@ -56,7 +56,7 @@ export default function Page({ itemCount }: Props): JSX.Element {
   const [items, setItems] = useState<number[]>(new Array(itemCount).fill(-1));
 
   useEffect(() => {
-    setItems(Array.from({ length: itemCount }, (_, i) => i + 1));
+    setItems(Array.from({ length: itemCount }, (_, i) => i));
   }, []);
 
   return (
@@ -66,7 +66,7 @@ export default function Page({ itemCount }: Props): JSX.Element {
         <AppStyle>
           {items.map((ele, idx) =>
             <ItemCard
-              num={idx}
+              num={ele}
               key={idx}
             />
           )}

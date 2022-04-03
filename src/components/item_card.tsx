@@ -2,7 +2,7 @@ import ImageWrapper from './center_img';
 import ItemFooter from './item_footer';
 import Skeleton from './skeleton';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ItemCardWrapper = styled.div`
   display:inline-block;
@@ -22,10 +22,11 @@ interface Props {
 
 export default function ItemCard({ num }: Props) {
 
-  const RANDOM_IMG1 = `https://source.unsplash.com/random/${num}` as const;
   const [loading, setLoading] = useState<boolean>(true);
-
-  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg`;
+  // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
+  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg?time=` + new Date().getTime();
+  useEffect(() => {
+  });
 
   return (
     <>

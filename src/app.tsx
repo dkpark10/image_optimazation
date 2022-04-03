@@ -12,7 +12,6 @@ const isChrome = () => {
 export default function App() {
 
   const options = useSelector((state: RootState) => state.options);
-  console.log(isChrome())
 
   return (
     <>
