@@ -44,19 +44,27 @@ const FooterWrapper = styled.div`
 
 interface Props {
   num: number;
+  render: boolean;
+  imgSize: string;
+  format:string;
 }
 
-export default function ItemFooter({ num }: Props) {
+export default function ItemFooter({
+  num,
+  render,
+  imgSize,
+  format
+ }: Props) {
 
   const sprite = useSelector((state: RootState) => state.options.sprite);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
-  },[])
+  }, [render])
 
   // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
-  const IMGSRC = `./imageoptimize/jpeg/75/img${num}.jpg?time=` + new Date().getTime();
+  const IMGSRC = `./imageoptimize/${format}/${imgSize}/img${num}.${format}?time=` + new Date().getTime();
   const size = {
     width: '34px',
     height: '34px'

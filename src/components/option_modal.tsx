@@ -5,7 +5,7 @@ import Button from './button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowModal } from '../reducer/show_modal';
 import { RootState } from '../reducer/index';
-import { OptionStatus, setOptimizeOptions } from '../reducer/options';
+import { OptionStatus, setOptimizeOptions} from '../reducer/options';
 import RangeInput from './atoms/input_range';
 import ImageSizeOption from './molecules/option_image_size';
 
@@ -43,7 +43,7 @@ const ModalWrapper = styled.div<Props>`
 
     .option-item{
       text-align: left;
-      margin: 3px 0;
+      margin: 5px 0;
     }
 
     .modal-content :first-child{
@@ -51,12 +51,18 @@ const ModalWrapper = styled.div<Props>`
     }
 }`;
 
+const isChrome = () => {
+  const agent = window.navigator.userAgent.toLowerCase();
+  return agent.indexOf('chrome') >= 0;
+}
+
 export default function OptionModal({
   display = 'none'
 }: Props) {
 
   const dispatch = useDispatch();
-  const [options, setOptions] = useState<OptionStatus>(useSelector((state: RootState) => state.options));
+  const initOptions = useSelector((state: RootState) => state.options);
+  const [options, setOptions] = useState<OptionStatus>(initOptions);
 
   useEffect(() => {
     // 스크롤 막는다.
@@ -69,6 +75,13 @@ export default function OptionModal({
     setOptions(prev => ({
       ...prev,
       itemCount: Number(e.target.value)
+    }))
+  }
+  
+  const imageSizehange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOptions(prev => ({
+      ...prev,
+      imgSize: e.target.value
     }))
   }
 
@@ -98,6 +111,10 @@ export default function OptionModal({
 
   const renderClick = () => {
     dispatch(setShowModal('none'));
+    setOptions(prev => ({
+      ...prev,
+      newRender: !prev.newRender
+    }))
     dispatch(setOptimizeOptions(options));
     // 스크롤 해제
     document.body.style.overflow = 'unset';
@@ -148,11 +165,15 @@ export default function OptionModal({
                 name={'webp-format'}
                 onChange={checkboxChange}
                 checked={options.webFormat}
+                disabled={isChrome() === false}
               />
-              <label htmlFor={'webp-format'}>webp 포맷 사용하기</label>
+              <label htmlFor={'webp-format'}>webp 사용 (only chrome)</label>
             </div>
             <div className='option-item'>
-              <ImageSizeOption />
+              <ImageSizeOption 
+                change={imageSizehange}
+                checked={options.imgSize}
+              />
             </div>
             <Button onClick={renderClick}>
               <span>다시 렌더링 하기</span>

@@ -56,6 +56,7 @@ interface Props {
   id: string;
   name: string;
   checked: boolean;
+  disabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -63,6 +64,7 @@ export default function ToggleButton({
   id,
   name,
   checked,
+  disabled = false,
   onChange
 }: Props) {
 
@@ -76,6 +78,7 @@ export default function ToggleButton({
             type='checkbox'
             onChange={onChange}
             checked={checked}
+            disabled={disabled}
           />
           <span className='onoff-switch' />
         </label>

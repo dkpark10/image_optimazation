@@ -70,6 +70,7 @@ export default function RadioButton({
           name={name}
           id={id}
           onChange={change}
+          checked={check}
         />
         <label htmlFor={name} />
       </RadioStyle>

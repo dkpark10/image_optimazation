@@ -5,18 +5,13 @@ export interface OptionStatus {
   lazyLoading: boolean;
   webFormat: boolean;
   itemCount: number;
+  newRender: boolean;
+  imgSize:string;
 };
 
 interface OptionsAction {
   type: string;
   payload: OptionStatus
-};
-
-const initialState: OptionStatus = {
-  sprite: false,
-  lazyLoading: true,
-  webFormat: false,
-  itemCount: 45
 };
 
 export const setOptimizeOptions = (payload: OptionStatus) => ({
@@ -25,7 +20,14 @@ export const setOptimizeOptions = (payload: OptionStatus) => ({
 })
 
 // 리듀서
-export default function optionsReducer(state: OptionStatus = initialState, action: OptionsAction): OptionStatus {
+export default function optionsReducer(state: OptionStatus = {
+  sprite: false,
+  lazyLoading: true,
+  webFormat: false,
+  itemCount: 45,
+  newRender: true,
+  imgSize:'100'
+}, action: OptionsAction): OptionStatus {
   switch (action.type) {
     case OPTIONS:
       return {

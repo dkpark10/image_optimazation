@@ -1,5 +1,6 @@
 import RadioButton from '../atoms/radio_button';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const ImageSizeOptionWrapper = styled.div`
   display:flex;
@@ -13,10 +14,14 @@ const ImageSizeOptionWrapper = styled.div`
   }
 `;
 
-export default function ImageSizeOption() {
+interface Props{
+  change: React.ChangeEventHandler<HTMLInputElement>;
+  checked: string;
+}
 
+export default function ImageSizeOption({ change, checked }: Props) {
   const sizeLabel = ['100', '75', '50'];
-
+  
   return (
     <>
       <div>
@@ -29,6 +34,8 @@ export default function ImageSizeOption() {
               value={ele}
               name={'image-size'}
               id={ele}
+              change={change}
+              check={checked === ele}
             />
             <div className='size-text'>
               <label htmlFor={ele}>{ele}%</label>
