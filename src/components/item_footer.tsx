@@ -6,7 +6,13 @@ import { RootState } from '../reducer/index';
 import Skeleton from './skeleton';
 import { useEffect, useState } from 'react';
 
-const FooterWrapper = styled.div`
+interface Props {
+  imgsrc: string;
+  render: boolean;
+  spriteSrc?: string;
+}
+
+const FooterWrapper = styled.div<Partial<Props>>`
   
   position: relative;
   height:20%;
@@ -22,7 +28,9 @@ const FooterWrapper = styled.div`
   }  
 
   .polygon, .new-moon, .star, .right, .rounded-rectangle{
-    background: url('images34gray.png') no-repeat;
+    background: url(${({ spriteSrc }) => {
+    return spriteSrc
+  }}) no-repeat;
   }
 
   .polygon{
@@ -42,17 +50,14 @@ const FooterWrapper = styled.div`
   }
 `;
 
-interface Props {
-  imgsrc: string;
-  render: boolean;
-}
 
 export default function ItemFooter({
   imgsrc,
   render
- }: Props) {
+}: Props) {
 
   const sprite = useSelector((state: RootState) => state.options.sprite);
+  const productionMode = process.env.NODE_ENV === 'production';
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -76,23 +81,24 @@ export default function ItemFooter({
         key={idx}
       >
         {sprite ? <div className={className} /> :
-          <img src={`${className}gray.png`} alt={`스프라이트 이미지${idx}`} />}
+          <img
+            src={productionMode ? `../public/${className}gray.png` : `${className}gray.png`}
+            alt={`스프라이트 이미지${idx}`}
+          />}
       </ImageWrapper>
     )
   }
 
   return (
     <>
-      <FooterWrapper>
+      <FooterWrapper
+        spriteSrc={productionMode ? '../public/images34gray.png' : 'images34gray.png'}
+      >
         <div className='footer_item'>
           <CircleImage
             width={'37px'}
             height={'37px'}
           >
-            {/* {loading && <div
-              className='skeleton-item'
-              style={{ width: '100%', height: '100%' }}
-            />} */}
             {loading && <Skeleton />}
             <img
               src={imgsrc}
