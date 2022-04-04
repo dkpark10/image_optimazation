@@ -43,17 +43,13 @@ const FooterWrapper = styled.div`
 `;
 
 interface Props {
-  num: number;
+  imgsrc: string;
   render: boolean;
-  imgSize: string;
-  format:string;
 }
 
 export default function ItemFooter({
-  num,
-  render,
-  imgSize,
-  format
+  imgsrc,
+  render
  }: Props) {
 
   const sprite = useSelector((state: RootState) => state.options.sprite);
@@ -63,8 +59,6 @@ export default function ItemFooter({
     setLoading(true);
   }, [render])
 
-  // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
-  const IMGSRC = `./imageoptimize/${format}/${imgSize}/img${num}.${format}?time=` + new Date().getTime();
   const size = {
     width: '34px',
     height: '34px'
@@ -101,7 +95,7 @@ export default function ItemFooter({
             />} */}
             {loading && <Skeleton />}
             <img
-              src={IMGSRC}
+              src={imgsrc}
               onLoad={() => setLoading(false)}
               alt={'프로필 이미지'}
             />

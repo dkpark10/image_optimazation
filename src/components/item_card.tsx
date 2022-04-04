@@ -21,16 +21,6 @@ interface Props {
   num: number;
 }
 
-const imgFormat = (webUse: boolean) => {
-  return webUse === true && isChrome() === true ? 'webp' : 'jpg';
-}
-
-const isChrome = () => {
-  const agent = window.navigator.userAgent.toLowerCase();
-  return agent.indexOf('chrome') >= 0;
-}
-
-
 export default function ItemCard({ num }: Props) {
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,12 +28,29 @@ export default function ItemCard({ num }: Props) {
   const newRender = useSelector((state: RootState) => state.options.newRender);
   const imgSize = useSelector((state: RootState) => state.options.imgSize);
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
-  const format = imgFormat(webpUse);
-  const IMGSRC = `./imageoptimize/${format}/${imgSize}/img${num}.${format}?time=` + new Date().getTime();
+
+  const getImgSrc = (imgNum : number):string => {
+    const remote = remotePath();
+    const format = imgFormat();
+    return `${remote}/images/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
+  }
+
+  const remotePath = ():string => {
+    return process.env.NODE_ENV === 'production' ? 'http://15.164.225.127/static/img/imageopti' : '';
+  }
+
+  const imgFormat= ():string => {
+    return webpUse === true && availableBrowser() === true ? 'webp' : 'jpg';
+  }
+
+  const availableBrowser = ():boolean => {
+    const agent = window.navigator.userAgent.toLowerCase();
+    return agent.indexOf('chrome') > -1 || agent.indexOf('mozilla') > -1 || agent.indexOf('edg') > -1;
+  }
 
   useEffect(() => {
     setLoading(true);
-  },[newRender])
+  }, [newRender])
 
   return (
     <>
@@ -54,16 +61,14 @@ export default function ItemCard({ num }: Props) {
         >
           {loading && <Skeleton />}
           <img
-            src={IMGSRC}
+            src={getImgSrc(0)}
             onLoad={() => setLoading(false)}
             alt={'메인 이미지'}
           />
         </ImageWrapper>
         <ItemFooter
-          num={num + 99}
-          imgSize={imgSize}
+          imgsrc={getImgSrc(99)}
           render={newRender}
-          format={format}
         />
       </ItemCardWrapper>
     </>

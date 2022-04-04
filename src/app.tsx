@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import RadioButton from './components/atoms/radio_button';
 import LazyLoadPage from './components/page/lazyload_page';
 import Page from './components/page/page_default';
 import { RootState } from './reducer/index';
