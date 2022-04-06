@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/',
+    publicPath: '/image_optimazation',
     filename: 'app.js'
   },
   devServer: {

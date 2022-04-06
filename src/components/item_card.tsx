@@ -30,13 +30,8 @@ export default function ItemCard({ num }: Props) {
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
 
   const getImgSrc = (imgNum : number):string => {
-    const remote = remotePath();
     const format = imgFormat();
-    return `${remote}/images/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
-  }
-
-  const remotePath = ():string => {
-    return process.env.NODE_ENV === 'production' ? 'http://15.164.225.127/static/img/imageopti' : '';
+    return `/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
   }
 
   const imgFormat= ():string => {
