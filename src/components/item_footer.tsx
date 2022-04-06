@@ -92,7 +92,7 @@ export default function ItemFooter({
   return (
     <>
       <FooterWrapper
-        spriteSrc={productionMode ? '../public/images34gray.png' : 'images34gray.png'}
+        spriteSrc={productionMode ? '/image_optimazation/public/images34gray.png' : 'images34gray.png'}
       >
         <div className='footer_item'>
           <CircleImage
