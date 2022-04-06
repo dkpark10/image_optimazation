@@ -82,7 +82,7 @@ export default function ItemFooter({
       >
         {sprite ? <div className={className} /> :
           <img
-            src={productionMode ? `../public/${className}gray.png` : `${className}gray.png`}
+            src={productionMode ? `/image_optimazation/public/${className}gray.png` : `${className}gray.png`}
             alt={`스프라이트 이미지${idx}`}
           />}
       </ImageWrapper>

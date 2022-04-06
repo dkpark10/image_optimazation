@@ -30,8 +30,13 @@ export default function ItemCard({ num }: Props) {
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
 
   const getImgSrc = (imgNum : number):string => {
+    const dev = devMode();
     const format = imgFormat();
-    return `/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
+    return `${dev}/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
+  }
+
+  const devMode = ():string => {
+    return process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
   }
 
   const imgFormat= ():string => {
