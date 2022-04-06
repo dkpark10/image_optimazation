@@ -36,7 +36,7 @@ export default function ItemCard({ num }: Props) {
   }
 
   const devMode = ():string => {
-    return process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
+    return process.env.NODE_ENV === 'production' ? '/image_optimazation/public' : '';
   }
 
   const imgFormat= ():string => {
