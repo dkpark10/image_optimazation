@@ -28,9 +28,7 @@ const FooterWrapper = styled.div<Partial<Props>>`
   }  
 
   .polygon, .new-moon, .star, .right, .rounded-rectangle{
-    background: url(${({ spriteSrc }) => {
-    return spriteSrc
-  }}) no-repeat;
+    background: url(${({ spriteSrc }) => spriteSrc}) no-repeat;
   }
 
   .polygon{
@@ -82,7 +80,7 @@ export default function ItemFooter({
       >
         {sprite ? <div className={className} /> :
           <img
-            src={productionMode ? `/image_optimazation/public/${className}gray.png` : `${className}gray.png`}
+            src={productionMode ? `/image_optimazation/${className}gray.png` : `${className}gray.png`}
             alt={`스프라이트 이미지${idx}`}
           />}
       </ImageWrapper>
@@ -92,7 +90,7 @@ export default function ItemFooter({
   return (
     <>
       <FooterWrapper
-        spriteSrc={productionMode ? '/image_optimazation/public/images34gray.png' : 'images34gray.png'}
+        spriteSrc={productionMode ? '/image_optimazation/images34gray.png' : 'images34gray.png'}
       >
         <div className='footer_item'>
           <CircleImage

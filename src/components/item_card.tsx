@@ -50,7 +50,7 @@ export default function ItemCard({ num }: Props) {
   }
 
   const devMode = (): string => {
-    return process.env.NODE_ENV === 'production' ? '/image_optimazation/public' : '';
+    return process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
   }
 
   const imgFormat = (): string => {
