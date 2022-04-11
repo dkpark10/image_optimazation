@@ -2,49 +2,34 @@ import React, { useEffect, useState } from 'react';
 import ItemCard from '../item_card';
 import Header from '../header';
 import styled from 'styled-components';
+import { compose } from 'redux';
 
 const AppWrapper = styled.main`
   position: relative;
   height: 100%;
 `;
 
-const AppStyle = styled.div`
+const AppStyle = styled.ul`
+
+  @media screen and (${({ theme }) => theme.mobile}){
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media screen and (${({ theme }) => theme.minTablet}) and (${({ theme }) => theme.maxTablet}){
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (${({ theme }) => theme.desktop}){
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
   justify-items: stretch;
   gap: 15px;
-  width:942px;
   position: absolute; 
   left:50%;
   transform: translate(-50%);
-
-  .target {
-    height: 280px;
-    &:last-child{
-      display:grid;
-      grid-column: auto / span 3;
-      grid-template-columns: repeat(3, 1fr);
-      justify-items: stretch;
-      gap: 10px;
-    }
-  }
-
-  @keyframes skeleton-gradient {
-  0% {
-      background-color: rgba(165, 165, 165, 0.24);
-    }
-  50% {
-      background-color: rgba(138, 138, 138, 0.5);
-    }
-  100% {
-      background-color: rgba(165, 165, 165, 0.2);
-    }
-  }
-
-  .skeleton-item {
-    -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
-    animation: skeleton-gradient 1.8s infinite ease-in-out;
-  }
+  list-style: none;
 `;
 
 interface Props {

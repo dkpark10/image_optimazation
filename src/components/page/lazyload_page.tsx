@@ -9,11 +9,31 @@ const AppWrapper = styled.main`
 `;
 
 const AppStyle = styled.ul`
+
+  @media screen and (${({ theme }) => theme.mobile}){
+    grid-template-columns: repeat(1, 1fr);
+    .target{
+      grid-column: auto / span 1;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.minTablet}) and (${({ theme }) => theme.maxTablet}){
+    grid-template-columns: repeat(2, 1fr);
+    .target{
+      grid-column: auto / span 2;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.desktop}){
+    grid-template-columns: repeat(3, 1fr);
+    .target{
+      grid-column: auto / span 3;
+    }
+  }
+
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
   justify-items: stretch;
   gap: 15px;
-  width:942px;
   position: absolute; 
   left:50%;
   transform: translate(-50%);
@@ -23,10 +43,7 @@ const AppStyle = styled.ul`
     height: 280px;
     &:last-child{
       display:grid;
-      grid-column: auto / span 3;
-      grid-template-columns: repeat(3, 1fr);
       justify-items: stretch;
-      gap: 10px;
     }
   }
 `;

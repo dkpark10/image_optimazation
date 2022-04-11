@@ -7,10 +7,24 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../reducer/index';
 
 const ItemCardWrapper = styled.div`
+
+  @media screen and (${({theme}) => theme.mobile}){
+    width:94vw;
+    height:82vw;
+  }
+
+  @media screen and (${({ theme }) => theme.minTablet}) and (${({ theme }) => theme.maxTablet}){
+    width:47vw;
+    height:41vw;
+  }
+
+  @media screen and (${({ theme }) => theme.desktop}) {
+    width:307px;
+    height:280px;
+  }
+
   display:inline-block;
   padding:10px;
-  height:280px;
-  width:307px;
   border-radius:6px;
   background: linear-gradient(145deg, #c2c2cd, #e7e7f4);
   box-shadow:  12px 17px 42px #727279,
@@ -29,21 +43,21 @@ export default function ItemCard({ num }: Props) {
   const imgSize = useSelector((state: RootState) => state.options.imgSize);
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
 
-  const getImgSrc = (imgNum : number):string => {
+  const getImgSrc = (imgNum: number): string => {
     const dev = devMode();
     const format = imgFormat();
     return `${dev}/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
   }
 
-  const devMode = ():string => {
+  const devMode = (): string => {
     return process.env.NODE_ENV === 'production' ? '/image_optimazation/public' : '';
   }
 
-  const imgFormat= ():string => {
+  const imgFormat = (): string => {
     return webpUse === true && availableBrowser() === true ? 'webp' : 'jpg';
   }
 
-  const availableBrowser = ():boolean => {
+  const availableBrowser = (): boolean => {
     const agent = window.navigator.userAgent.toLowerCase();
     return agent.indexOf('chrome') > -1 || agent.indexOf('mozilla') > -1 || agent.indexOf('edg') > -1;
   }

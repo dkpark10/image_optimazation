@@ -24,7 +24,7 @@ export default function optionsReducer(state: OptionStatus = {
   sprite: false,
   lazyLoading: true,
   webFormat: false,
-  itemCount: 45,
+  itemCount: 27,
   newRender: true,
   imgSize:'100'
 }, action: OptionsAction): OptionStatus {

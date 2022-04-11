@@ -15,12 +15,10 @@ const StyleButton = styled.button`
   box-shadow:  5px 8px 19px #59595d,
              -5px -5px 16px #ffffff;
 
-
   &:hover{
     background: linear-gradient(315deg, #e7e7f4, #c2c2cd);
     box-shadow:  -5px -5px 16px #59595d,
              5px 5px 16px #ffffff;
-
   }
 `;
 
