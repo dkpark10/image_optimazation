@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ToggleButton from './toggle';
 import Button from './button';
@@ -115,9 +115,17 @@ export default function OptionModal({
       ...prev,
       newRender: !prev.newRender
     }))
+
     dispatch(setOptimizeOptions(options));
     // 스크롤 해제
     document.body.style.overflow = 'unset';
+  }
+
+  const overlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // 자식한테 이벤트 전파 방지
+    if(e.target === e.currentTarget){
+      dispatch(setShowModal('none'));
+    }
   }
 
   return (
@@ -125,7 +133,9 @@ export default function OptionModal({
       <ModalWrapper
         display={display}
       >
-        <div className='overlay'>
+        <div className='overlay'
+          onClick={overlayClick}
+        >
           <div className='modal-content'>
             <div className='option-item'>
               <div>

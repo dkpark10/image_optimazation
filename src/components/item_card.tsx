@@ -8,7 +8,7 @@ import { RootState } from '../reducer/index';
 
 const ItemCardWrapper = styled.div`
 
-  @media screen and (${({theme}) => theme.mobile}){
+  @media screen and (${({ theme }) => theme.mobile}){
     width:94vw;
     height:82vw;
   }
@@ -44,17 +44,9 @@ export default function ItemCard({ num }: Props) {
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
 
   const getImgSrc = (imgNum: number): string => {
-    const dev = devMode();
-    const format = imgFormat();
-    return `${dev}/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
-  }
-
-  const devMode = (): string => {
-    return process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
-  }
-
-  const imgFormat = (): string => {
-    return webpUse === true && availableBrowser() === true ? 'webp' : 'jpg';
+    const devPath = process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
+    const format = webpUse === true && availableBrowser() === true ? 'webp' : 'jpg';
+    return `${devPath}/mainimages/${format}/${imgSize}/img${num + imgNum}.${format}?time=` + new Date().getTime();
   }
 
   const availableBrowser = (): boolean => {
