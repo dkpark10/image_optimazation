@@ -16,12 +16,14 @@ module.exports = (env, argv) => {
       filename: 'app.js'
     },
     devServer: {
+      open: true,
+      hot: true,
       port: 3010
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
-    devtool: isDevMode ? 'inline-source-map' : '',
+    devtool: isDevMode ? 'inline-source-map' : 'source-map',
     module: {
       rules: [
         {

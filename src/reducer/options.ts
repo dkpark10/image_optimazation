@@ -5,7 +5,6 @@ export interface OptionStatus {
   lazyLoading: boolean;
   webFormat: boolean;
   itemCount: number;
-  newRender: boolean;
   imgSize:string;
 };
 
@@ -25,7 +24,6 @@ export default function optionsReducer(state: OptionStatus = {
   lazyLoading: true,
   webFormat: false,
   itemCount: 27,
-  newRender: true,
   imgSize:'100'
 }, action: OptionsAction): OptionStatus {
   switch (action.type) {

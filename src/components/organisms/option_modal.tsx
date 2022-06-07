@@ -112,7 +112,7 @@ export default function OptionModal({
 
     // 스크롤 해제
     document.body.style.overflow = 'unset';
-    window.location.replace("/")
+    window.location.replace("/");
   }
 
   const overlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
