@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ToggleButton from '../atoms/toggle';
 import Button from '../atoms/button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setShowModal } from '../../reducer/show_modal';
-import { OptionStatus } from '../../reducer/options';
 import RangeInput from '../atoms/input_range';
 import ImageSizeOption from '../molecules/option_image_size';
+import { RootState } from '../../reducer/index';
+import { OptionStatus, setOptimizeOptions} from '../../reducer/options';
 
 interface Props {
   display?: string;
@@ -58,7 +59,7 @@ export default function OptionModal({
   display = 'none'
 }: Props) {
   const dispatch = useDispatch();
-  const initOptions = JSON.parse(localStorage.getItem('options'));
+  const initOptions = useSelector((state: RootState) => state.options);
   const [options, setOptions] = useState<OptionStatus>(initOptions);
 
   useEffect(() => {
@@ -108,7 +109,11 @@ export default function OptionModal({
 
   const renderClick = () => {
     dispatch(setShowModal('none'));
-    localStorage.setItem('options', JSON.stringify(options));
+    setOptions(prev => ({
+      ...prev,
+      newRender: !prev.newRender
+    }))
+    dispatch(setOptimizeOptions(options));
 
     // 스크롤 해제
     document.body.style.overflow = 'unset';

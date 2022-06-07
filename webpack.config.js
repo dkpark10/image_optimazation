@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
-    devtool: isDevMode ? 'inline-source-map' : '',
+    devtool: isDevMode ? 'inline-source-map' : 'source-map',
     module: {
       rules: [
         {
