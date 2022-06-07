@@ -6,9 +6,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => {
-
   const isDevMode = argv.mode === 'development';
-  const isProdmode = argv.mode === 'porduction';
 
   return {
     entry: './src/index.tsx',
@@ -23,7 +21,7 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
-    devtool: 'inline-source-map',
+    devtool: isDevMode ? 'inline-source-map' : '',
     module: {
       rules: [
         {

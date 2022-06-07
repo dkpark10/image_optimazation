@@ -36,7 +36,6 @@ interface Props {
 }
 
 export default function ItemCard({ num }: Props) {
-
   const [loading, setLoading] = useState<boolean>(true);
   // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
   const newRender = useSelector((state: RootState) => state.options.newRender);

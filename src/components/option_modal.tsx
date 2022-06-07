@@ -14,7 +14,6 @@ interface Props {
 }
 
 const ModalWrapper = styled.div<Props>`
-  
   display: ${({ display }) => display};
   position: fixed;
   width:100%;
@@ -125,6 +124,7 @@ export default function OptionModal({
     // 자식한테 이벤트 전파 방지
     if(e.target === e.currentTarget){
       dispatch(setShowModal('none'));
+      document.body.style.overflow = 'unset';
     }
   }
 

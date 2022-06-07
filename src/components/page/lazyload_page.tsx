@@ -9,7 +9,6 @@ const AppWrapper = styled.main`
 `;
 
 const AppStyle = styled.ul`
-
   @media screen and (${({ theme }) => theme.mobile}){
     grid-template-columns: repeat(1, 1fr);
     .target{
@@ -53,7 +52,6 @@ interface Props {
 }
 
 export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
-
   const [target, setTarget] = useState<any>(null);
   const [items, setItems] = useState<number[]>([0,1,2,3,4,5,6,7,8]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
