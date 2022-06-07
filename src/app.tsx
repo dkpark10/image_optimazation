@@ -6,7 +6,6 @@ import { RootState } from './reducer/index';
 import { theme } from './styles/theme';
 
 export default function App() {
-
   const options = useSelector((state: RootState) => state.options);
 
   return (
