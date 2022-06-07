@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ItemCard from '../item_card';
-import Header from '../header';
+import ItemCard from '../molecules/item_card';
+import Header from '../organisms/header';
 import styled from 'styled-components';
 import { compose } from 'redux';
 

@@ -2,12 +2,11 @@ import ImageWrapper from '../atoms/center_img';
 import ItemFooter from './item_footer';
 import Skeleton from '../atoms/skeleton';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducer/index';
 
 const ItemCardWrapper = styled.div`
-
   @media screen and (${({ theme }) => theme.mobile}){
     width:94vw;
     height:82vw;
@@ -40,7 +39,7 @@ export default function ItemCard({ num }: Props) {
   // 새로고침시 캐시에서 이미지를 찾지 않고 다시 로드한다.
   const imgSize = useSelector((state: RootState) => state.options.imgSize);
   const webpUse = useSelector((state: RootState) => state.options.webFormat);
-  
+
   const getImgSrc = (imgNum: number): string => {
     const devPath = process.env.NODE_ENV === 'production' ? '/image_optimazation' : '';
     const format = webpUse === true && availableBrowser() === true ? 'webp' : 'jpg';
