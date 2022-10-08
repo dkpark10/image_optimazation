@@ -8,6 +8,7 @@ import RangeInput from '../atoms/input_range';
 import ImageSizeOption from '../molecules/option_image_size';
 import { RootState } from '../../reducer/index';
 import { OptionStatus, setOptimizeOptions} from '../../reducer/options';
+import RadioButton from '../atoms/radio_button';
 
 interface Props {
   display?: string;
@@ -107,6 +108,10 @@ export default function OptionModal({
     }
   }
 
+  const changeScrollWay = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  }
+
   const renderClick = () => {
     dispatch(setShowModal('none'));
     setOptions(prev => ({
@@ -182,6 +187,20 @@ export default function OptionModal({
               <ImageSizeOption 
                 change={imageSizehange}
                 checked={options.imgSize}
+              />
+            </div>
+            <div className='option-item'>
+              <RadioButton
+                value='intersection'
+                name='intersection'
+                id='intersection'
+                change={changeScrollWay}
+              />
+              <RadioButton
+                value='scroll'
+                name='scroll'
+                id='scroll'
+                change={changeScrollWay}
               />
             </div>
             <Button onClick={renderClick}>

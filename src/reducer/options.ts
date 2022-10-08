@@ -26,7 +26,7 @@ export default function optionsReducer(state: OptionStatus = {
   webFormat: false,
   itemCount: 27,
   newRender: true,
-  imgSize:'100'
+  imgSize: '100'
 }, action: OptionsAction): OptionStatus {
   switch (action.type) {
     case OPTIONS:

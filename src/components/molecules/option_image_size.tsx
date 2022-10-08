@@ -1,6 +1,5 @@
 import RadioButton from '../atoms/radio_button';
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const ImageSizeOptionWrapper = styled.div`
   display:flex;

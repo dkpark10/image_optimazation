@@ -52,7 +52,7 @@ interface Props {
 }
 
 export default function LazyLoadPage({ itemCount }: Props): JSX.Element {
-  const [target, setTarget] = useState<any>(null);
+  const [target, setTarget] = useState<Element>(null);
   const [items, setItems] = useState<number[]>([0,1,2,3,4,5,6,7,8]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
